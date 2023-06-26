@@ -1,0 +1,5 @@
+=> node is a runtime environment to execute js code outside of web browser ( in server )
+
+=> node app is single threaded
+
+=> 

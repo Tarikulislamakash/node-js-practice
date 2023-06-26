@@ -1,0 +1,84 @@
+=> in node every file is a module
+
+
+=> create a module name testModule.js
+
+let url = 'http://testapp.com/test';
+
+function log(message) {
+    console.log(message);
+}
+
+module.exports.log = log;
+
+*** if there is only one function, no need to use function name explicitly
+
+module.exports = log;
+
+
+=> load a module
+
+    const log = require('./testModule.js');
+    log('message');
+
+
+
+=> node does not execute the code of a module, it wraps the whole code in a function like
+
+(function(exports, require, module, __filename, __dirname){
+    code...
+})
+
+
+=> load path module
+    const path = require('path);
+    const pathObj = path.parse(__filename);
+    console.log(pathObj);
+
+
+=> load os module
+    const os = require('os);
+    const totalMem = os.totalmem();
+    const freeMem = os.freemem();
+    console.log(`Total memory is ${totalMem}`);
+    console.log(`Free memory is ${freeMem}`);
+
+
+=> load file system module
+    const fs = require('fs);
+    const files = fs.readdirSync('./');
+    console.log(files);
+
+    fs.readdir('./', function(err, result){
+        if(err) console.log('Error : ', err);
+        else console.log('Result : ', files);
+    });
+
+
+=> event module 
+
+    *** in event module, variable name will be in uppercase
+
+    const EventEmitter = require('events');
+    const emitter = new EventEmitter();
+
+    // register a listener
+    emitter.on('messageLogged', function(){
+        console.log('Listener called');
+    });
+
+    // raise an event
+    emitter.emit('messageLogged');
+
+    *** before raise an event we must register a listener otherwise nothing will work
+
+
+=> we can pass arguments when raise an event like
+
+    // register a listener
+    emitter.on('messageLogged', function(args){
+        console.log('Listener called', args);
+    });
+
+    // raise an event
+    emitter.emit('messageLogged', { id : 1, url : 'http://test.com });
