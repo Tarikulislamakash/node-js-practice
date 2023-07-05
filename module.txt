@@ -82,3 +82,68 @@ module.exports = log;
 
     // raise an event
     emitter.emit('messageLogged', { id : 1, url : 'http://test.com });
+
+
+=> extend emitter class
+
+    // logger file
+    
+    const EventEmitter = require('events');
+    let url = 'http://testapp.com/test';
+
+    class Logger extends EventEmitter {
+        log(message) {
+            console.log(message);
+
+            this.emit('messageLogged', { id : 1, url : 'http://test.com });
+        }
+    }
+
+    module.exports = Logger;
+
+    // app file
+
+    const Logger = require('./logger);
+    const logger = new Logger();
+
+    // register a listener
+    logger.on('messageLogged', function(args){
+        console.log('Listener called', args);
+    });
+
+    logger.log('message);
+
+
+=> http module
+
+    const http = require('http);
+
+    const server = http.createServer();
+
+    server.on('connection', function(socket){
+        console.log('New connection...');
+    });
+
+    server.listen(3000);
+
+    console.log('Listening on port 3000...');
+
+    // ---------------------------------------------
+
+    const http = require('http);
+
+    const server = http.createServer((req, res) => {
+        if(req.url === '/'){
+            res.write('Hello world');
+            res.end();
+        }
+
+        if(req.url === '/api/course'){
+            res.write(JSON.stringify([1, 2, 3]));
+            res.end();
+        }
+    });
+
+    server.listen(3000);
+
+    console.log('Listening on port 3000...');

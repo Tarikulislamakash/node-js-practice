@@ -1,0 +1,50 @@
+=> x.x.x
+    first one is major version
+    second one is minor version
+    third one is patch version or bug fix release
+
+
+=> install package for development 
+    npm i package-name --save-dev
+
+
+=> package.json initialize
+
+    npm init --yes
+
+
+=> list all package
+
+    npm list
+    npm list --depth=0
+
+
+=> view package dependencies
+
+    npm view package-name
+
+
+=> show all package version status
+
+    npm outdated
+
+
+=> package install
+
+    npm i -g package-name
+
+
+=> uninstall package
+
+    npm uninstall/un package-name
+
+
+=> publish a package
+
+    npm publish
+
+
+=> change published package version
+
+    npm version minor/major/patch
+    npm publish

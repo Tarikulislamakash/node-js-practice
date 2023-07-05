@@ -1,0 +1,76 @@
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Hello world');
+});
+
+app.get('/api/courses', (req, res) => {
+    res.send([1, 2, 3]);
+})
+
+// fetch port number from env file
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+
+=> install nodemon package to monitor changes in app and auto refresh the app
+
+    npm i -g nodemon
+
+
+=> set port
+
+    in windows set PORT=5000
+    in mac export PORT=5000
+
+
+=> fetch specific item 
+
+    app.get('/api/courses/:id', (req, res) => {
+        res.send(req.params.id);
+        res.send(req.query);
+    });
+
+
+=> fetch courses and course
+
+    const courses = [
+        { id : 1, name : 'Course One' },
+        { id : 2, name : 'Course Two' },
+        { id : 3, name : 'Course Three' }
+    ];
+
+
+=> get all course
+
+    app.get('/api/courses', (req, res) => {
+        res.send(courses);
+    });
+
+
+=> get course based on ID
+
+    app.get('api/courses/:id', (req, res) => {
+        const course = courses.find( c => c.id === parseInt(req.params.id) );
+        if( !course ) res.status(404).send('The course with the given id was not found.');
+        res.send(course);
+    });
+
+
+=> http post request
+
+    // to fetch the request of the body we need to assign json at the top after creating the express object
+
+    app.use(express.json());
+
+
+    app.post('api/courses', (req, res) => {
+        const course = {
+            id : courses.length + 1,
+            name : req.body.name,
+        };
+
+        courses.push(course);
+        res.send(course);
+    });
